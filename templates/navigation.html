@@ -1,0 +1,15 @@
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="topbar app-sidebar">
+ <a class="brand" href="{{ url_for('dashboard',run=run_id) }}"><span class="brand-mark">S</span><span>SENTRYLINE<small>Evidence into understanding</small></span></a>
+ <p class="nav-label">Investigation workspace</p>
+ <nav aria-label="Primary navigation">
+  <a class="{{ 'active' if request.endpoint in ['index','dashboard'] else '' }}" href="{{ url_for('dashboard',run=run_id) }}"><span class="nav-number" aria-hidden="true">01</span>Overview</a>
+  <a class="{{ 'active' if request.endpoint=='report' else '' }}" href="{{ url_for('report',run=run_id) }}"><span class="nav-number" aria-hidden="true">02</span>Incident report</a>
+  <a class="{{ 'active' if request.endpoint=='timeline' else '' }}" href="{{ url_for('timeline',run=run_id) }}"><span class="nav-number" aria-hidden="true">03</span>Evidence timeline</a>
+  {% if result.input_audit %}<a class="{{ 'active' if request.endpoint=='input_audit' else '' }}" href="{{ url_for('input_audit',run=run_id) }}"><span class="nav-number" aria-hidden="true">04</span>Input audit</a>{% else %}<span class="nav-unavailable"><span class="nav-number" aria-hidden="true">04</span>Input audit <small>Available after upload</small></span>{% endif %}
+  <a class="{{ 'active' if request.endpoint=='monitoring' else '' }}" href="{{ url_for('monitoring') }}"><span class="nav-number">05</span>Local monitoring</a>
+ </nav>
+ <aside class="sidebar-context"><span class="workspace-label">LOCAL WORKSPACE</span><strong>Evidence first.</strong><p>Review signals in context. Keep the original lines close.</p><span class="workspace-mode">Uploads + owner-approved monitoring</span></aside>
+ <footer class="sidebar-footer">{% if run_id %}Selected scan <code>{{ run_id[:8] }}</code>{% else %}Ready for your first investigation{% endif %}<br>Reports use UTC timestamps</footer>
+</header>
+<div class="workspace-bar"><span>Security analysis <span aria-hidden="true">/</span> <strong>{{ 'Local monitoring' if request.endpoint=='monitoring' else 'Input audit' if request.endpoint=='input_audit' else ('Evidence timeline' if request.endpoint=='timeline' else ('Incident report' if request.endpoint=='report' else 'Overview')) }}</strong></span><span class="workspace-badge">Local Â· shared workspace</span></div>

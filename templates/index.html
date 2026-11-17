@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="analysis-id" content="{{ run_id or '' }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sentryline | Security Operations</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='workspace.css') }}">
+</head>
+<body>
+  {% include "navigation.html" %}
+  <main id="main-content" class="shell">
+    {% if result.generated_at %}
+    <p class="scope-note">Stored ruleset: {{ result.ruleset_version|default('Legacy — reanalyze with current rules') }} · Scan {{ run_id[:8] }}</p>
+    {% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Security log intelligence / {{ result.source }}</p>
+        <h1>See the signal.<br><em>Understand the story.</em></h1>
+        <p class="lede">Bring your logs together. Follow the evidence, understand each finding, and record a clear review decision.</p>
+      </div>
+      <div class="hero-stamp">
+        <span class="pulse"></span>
+        <strong>{{ 'ANALYSIS SNAPSHOT' if run_id else 'START YOUR REVIEW' }}</strong>
+        <small>{{ 'Last scan ' + result.generated_at[:16].replace('T', ' ') + ' UTC' if result.generated_at else 'Waiting for your first log' }}</small>
+      </div>
+    </section>
+
+    <section class="upload-strip">
+      <div>
+        <p class="eyebrow">Input source</p>
+        <h2>Analyze a log file</h2>
+        <small>Upload a .txt, .log, or .jsonl file using any supported format, or run the built-in multi-stage scenario. The complete uploaded source is retained locally with the scan; download it before the 20-scan history expires.</small>
+      </div>
+      <div class="upload-actions">
+        <form class="upload-form" method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label class="file-picker">
+            <input type="file" name="log_file" accept=".txt,.log,.jsonl,text/plain,application/json" required>
+            <span>Choose log file</span>
+          </label>
+          <button class="button button-dark" type="submit">Upload & analyze <span>-></span></button>
+        </form>
+        <form method="post" action="{{ url_for('load_sample') }}" style="display:inline;">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="button button-sample" type="submit" title="Load sample multi-stage attack scenario with authentication, network, and command evidence">Load Sample Attack Scenario <span>⚡</span></button>
+        </form>
+      </div>
+    </section>
+
+    <section class="stat-grid">
+      <article class="stat-card accent">
+        <span>Review priority score</span>
+        <strong>{% if result.risk_score is none %}Not assessed{% else %}{{ result.risk_score }}<small>/100</small>{% endif %}</strong>
+        <div class="risk-bar"><i style="width: {{ result.risk_score or 0 }}%"></i></div>
+        <b>{{ 'No supported assessment' if result.risk_score is none else ('Elevated attention' if result.risk_score >= 50 else 'Fewer supported signals — not proof of safety') }}</b>
+      </article>
+      <article class="stat-card">
+        <span>Awaiting review</span>
+        <strong>{{ result.summary.open_alerts }}</strong>
+        <b class="muted">{{ result.summary.severity_counts.critical }} critical signals</b>
+      </article>
+      <article class="stat-card">
+        <span>Failed logins</span>
+        <strong>{{ result.summary.failed_logins }}</strong>
+        <b class="muted">{{ result.summary.unique_ips }} source IPs observed</b>
+      </article>
+      <article class="stat-card">
+        <span>Accounts seen</span>
+        <strong>{{ result.summary.unique_users }}</strong>
+        <b class="muted">{{ result.summary.total_events }} events parsed</b>
+      </article>
+    </section>
+
+    {% include "coverage_note.html" %}
+    {% if result.parse_errors %}
+    <details class="panel parser-warnings"><summary>Parser warnings ({{ result.parse_errors|length }} entries)</summary>
+      <ul>{% for warning in result.parse_errors %}<li>{{ warning }}</li>{% endfor %}</ul>
+    </details>
+    {% endif %}
+    <p class="scope-note">Local analyst workspace · latest analysis shared by all users · 5 MiB / 50,000 event limit{% if result.processing_ms is defined %} · Detection processing {{ result.processing_ms }} ms{% endif %}</p>
+    <details class="panel history-panel" {% if history|length > 1 %}open{% endif %}>
+      <summary>Analysis history · {{ history|length }} retained scans</summary>
+      <div class="table-wrap"><table><thead><tr><th>Source</th><th>Generated (UTC)</th><th>Events</th><th>Alerts</th><th>Risk</th></tr></thead>
+      <tbody>{% for scan in history %}<tr {% if scan.analysis_id == run_id %}class="selected-run"{% endif %}>
+        <td><a href="{{ url_for('dashboard', run=scan.analysis_id) }}">{{ scan.source }}</a>{% if scan.analysis_id == run_id %} <small>Selected</small>{% endif %}</td>
+        <td>{{ scan.generated_at[:19].replace('T',' ') }}</td><td>{{ scan.events }}</td><td>{{ scan.alerts }}</td><td>{{ 'Not assessed' if scan.risk_score is none else (scan.risk_score|string + '/100') }}</td>
+      </tr>{% else %}<tr><td colspan="5">Load a sample or upload a log to start an investigation.</td></tr>{% endfor %}</tbody></table></div>
+    </details>
+    {% if run_id %}
+    <details class="panel history-panel"><summary>Historical login training</summary>
+      <p>Approve only reviewed, trusted login data. Successful logins from this scan can inform later scans. Training requires a named host and user, 10 distinct login timestamps, and 3 days of observations.</p>
+      <p>This scan used {{ result.baseline_context.historical_profiles if result.baseline_context is defined else 0 }} historical profiles. Other identities use a within-upload reference.</p>
+      {% if baseline_status %}<p>Approved by {{ baseline_status.actor }} at {{ baseline_status.approved[:19].replace('T',' ') }} UTC.</p>
+      <form method="post" action="{{ url_for('revoke_training',run_id=run_id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="button button-secondary" type="submit">Revoke training approval</button></form>
+      {% else %}<form method="post" action="{{ url_for('approve_training', run_id=run_id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label><input type="checkbox" name="trusted" value="yes" required> I reviewed this scan and trust these successful logins as training data.</label>
+        <button type="submit" class="button button-secondary" data-busy-label="Approving…">Approve training</button>
+      </form>{% endif %}
+    </details>
+    {% endif %}
+    <section class="killchain-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">MITRE ATT&CK tactic coverage</p>
+          <h2>Observed detection coverage</h2>
+        </div>
+      </div>
+      <div class="killchain-track">
+        {% for tile in coverage %}
+        <div class="killchain-node {{ 'active ' + tile.severity if tile.count else 'inactive' }}">
+          <div class="node-body"><span class="node-tactic">{{ tile.tactic }}</span><strong>{{ tile.title }}</strong>
+            <div class="node-meta"><span class="tech-tag">{{ tile.techniques }}</span><b>{{ tile.count }} signals</b></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <p class="muted">Coverage shows observed rule signals; it does not establish attack order.</p>
+    </section>
+
+    <section class="content-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Priority queue</p>
+            <h2>Signals requiring review</h2>
+          </div>
+          <a class="text-link" href="{{ url_for('report', run=run_id) }}">Full report <span>-></span></a>
+        </div>
+        {% for alert in priority_alerts[:6] %}
+          <div class="alert-row">
+            <span class="severity-dot {{ alert.severity }}"></span>
+            <div class="alert-copy">
+              <strong>{{ alert.message }}</strong>
+                {% if alert.confidence %}<small>Confidence: {{ alert.confidence }}</small>{% endif %}
+              <small>{{ alert.user }} · {{ alert.ip }} · {{ alert.timestamp[11:16] }} UTC</small>
+            </div>
+            <span class="tag {{ alert.severity }}">{{ alert.severity }}</span>
+          </div>
+        {% else %}
+          <div class="empty">Upload a log file or load the sample scenario to populate the queue.</div>
+        {% endfor %}
+      </div>
+      <aside class="panel snapshot">
+        <p class="eyebrow">Detection mix</p>
+        <h2>Signal breakdown</h2>
+        {% for alert_type, metadata in detection_types.items() if alert_counts[alert_type] %}
+          <div class="mix-row">
+            <span>{{ alert_type|replace('_', ' ')|title }}</span>
+            <b>{{ alert_counts[alert_type] }}</b>
+          </div>
+        {% else %}<p class="muted">No findings in this scan. Input coverage still needs review.</p>{% endfor %}
+        <div class="scope-note">
+          <span class="pulse"></span>
+          <div>
+            <strong>Rules active</strong>
+            <small>Behavioral baseline · ATT&CK mapping · multi-signal analysis</small>
+          </div>
+        </div>
+      </aside>
+    </section>
+    <div id="operation-status" role="status" aria-live="polite"></div>
+  </main>
+  <script src="{{ url_for('static', filename='chart.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{% if result.generated_at %}
+<section class="panel input-assessment" aria-labelledby="input-coverage-title">
+  {% if result.input_audit %}{% set audit = result.input_audit %}
+  <p class="eyebrow">Input coverage — not detection accuracy</p>
+  <h2 id="input-coverage-title">{% if audit.input_state == 'no_events' %}Not assessed: no supported events{% elif audit.input_state == 'partial' %}Incomplete coverage: some input needs review{% else %}Input accounted for: rule coverage remains limited{% endif %}</h2>
+  <p><strong>{{ audit.total_lines }}</strong> physical lines = <strong>{{ audit.parsed_lines }}</strong> parsed + <strong>{{ audit.unparsed_lines }}</strong> unparsed + <strong>{{ audit.blank_lines }}</strong> blank. {{ audit.parsed_unclassified_lines }} parsed lines have no supported action interpretation.</p>
+  <p>Every accepted input line is recorded. Source retention follows the 20-scan history; download the original before it expires. Parsed does not mean safe or fully understood. Unsupported lines did not enter the detector.</p>
+  <div class="table-actions"><a class="button button-secondary" href="{{ url_for('input_audit',run=run_id,state='unparsed') }}">Review unparsed lines</a><a class="button button-secondary" href="{{ url_for('input_audit',run=run_id) }}">View every line</a><a class="button button-secondary" href="{{ url_for('export_source',run=run_id) }}">Download exact original</a></div>
+  <details><summary>What this report can and cannot assess</summary><ul>{% for note in result.coverage_assessment.notes %}<li>{{ note }}</li>{% endfor %}</ul><p>Rules apply only to the telemetry and formats supported by this release. Zero findings is not a safety guarantee. Source SHA-256: <code>{{ audit.sha256 }}</code></p></details>
+  {% else %}<h2 id="input-coverage-title">Input coverage unavailable for this older scan</h2><p>Re-upload the original file to obtain exact line accounting. An older scan without warnings does not establish complete input coverage.</p>{% endif %}
+</section>
+{% endif %}

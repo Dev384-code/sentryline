@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evidence timeline | Sentryline</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"><link rel="stylesheet" href="{{ url_for('static',filename='report.css') }}"><link rel="stylesheet" href="{{ url_for('static',filename='workspace.css') }}">
+</head>
+<body>{% include "navigation.html" %}
+<main id="main-content" class="shell"><section class="report-heading"><p class="eyebrow">{{ result.source }}</p><h1>Evidence timeline</h1><p class="lede">Events in parsed UTC order. Alert links show which source lines contributed to a signal; timing alone does not prove causation.</p></section>
+<form method="get" class="filter-toolbar">{% if run_id %}<input type="hidden" name="run" value="{{ run_id }}">{% endif %}
+<label for="timeline-query">Search evidence</label><input class="filter-search" id="timeline-query" name="q" value="{{ filters.q }}" placeholder="Host, account, IP, or command">
+<label for="action-filter">Event action</label><select id="action-filter" name="action" class="filter-select"><option value="all">All actions</option>{% for action in actions %}<option value="{{ action }}" {% if filters.action == action %}selected{% endif %}>{{ action }}</option>{% endfor %}</select>
+<label><input type="checkbox" name="alerts" value="1" {% if filters.alerts == '1' %}checked{% endif %}> Contributing alert evidence only</label><button class="button button-secondary" type="submit">Apply filters</button></form>
+<p>{{ matched_count }} matching events · page {{ page }} of {{ pages }}</p>
+<section class="panel"><div class="table-wrap"><table><thead><tr><th>Time (UTC)</th><th>Host / account</th><th>Event and evidence</th><th>Related signals</th></tr></thead><tbody>
+{% for event in timeline_events %}<tr><td>{{ event.timestamp[:19].replace('T',' ') }}<small>Line {{ event.line }}</small></td><td>{{ event.host|default('Unavailable') }}<small>{{ event.user }} · {{ event.ip }}</small></td>
+<td><strong>{{ event.action }} · {{ event.status }}</strong>{% if event.windows_event_id is defined %}<small>Windows Security {{ event.windows_event_id }}</small>{% endif %}<details class="event-evidence"><summary>Source event</summary><pre>{{ event.raw }}</pre></details></td>
+<td>{% for alert in alerts_by_line.get(event.line,[]) %}<a class="timeline-signal" href="{{ url_for('report',run=run_id,q=alert.id) }}#{{ alert.id }}"><span class="tag {{ alert.severity }}">{{ alert.severity }}</span> {{ alert.type|replace('_',' ') }}</a>{% else %}<span class="muted">No rule signal</span>{% endfor %}</td></tr>
+{% else %}<tr><td colspan="4">No evidence matches these filters. Load a scan or adjust the search.</td></tr>{% endfor %}</tbody></table></div></section>
+<nav class="table-actions" aria-label="Timeline pages">{% if page > 1 %}<a class="button" href="{{ url_for('timeline',page=page-1,**filters) }}">Previous</a>{% endif %}<span>Page {{ page }} of {{ pages }}</span>{% if page < pages %}<a class="button" href="{{ url_for('timeline',page=page+1,**filters) }}">Next</a>{% endif %}</nav>
+</main></body></html>

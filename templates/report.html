@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="analysis-id" content="{{ run_id or '' }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Incident report | Sentryline</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='report.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='workspace.css') }}">
+</head>
+<body>
+  {% include "navigation.html" %}
+  <main id="main-content" class="shell report-page">
+    {% if result.generated_at %}
+    <p class="scope-note">Stored ruleset: {{ result.ruleset_version|default('Legacy — reanalyze with current rules') }} · Scan {{ run_id[:8] }}</p>
+    {% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}{% endwith %}
+    <section class="report-heading">
+      <p class="eyebrow">Security review / {{ result.source }}</p>
+      <h1>Incident report</h1>
+      <p class="lede">Understand what the logs show, why each finding matters, and what to check next. A finding is a reason to investigate; it does not confirm an attack.</p>
+    </section>
+
+    {% include "coverage_note.html" %}
+    <div class="report-meta">
+      <div><span>Generated</span><strong>{{ result.generated_at[:19].replace('T', ' ') if result.generated_at else 'Not run' }} UTC</strong></div>
+      <div><span>Review score — not attack probability</span><strong>{% if result.input_audit and result.input_audit.input_state == 'no_events' %}Not assessed{% else %}{{ result.risk_score }} / 100{% endif %}</strong></div>
+      <div><span>Input warnings</span><strong>{{ result.input_audit.unparsed_lines if result.input_audit else result.parse_errors|length }}</strong></div>
+      <div><span>Findings to review</span><strong>{{ result.alerts|length }}</strong></div>
+    </div>
+
+    <section class="report-intro panel" aria-labelledby="report-guide">
+      <h2 id="report-guide">Start here</h2>
+      <p>{{ result.alerts|length }} findings from {{ result.events|length }} recorded events. {{ review_open_count }} findings are still open or being checked. Several findings can describe the same activity.</p>
+      <ol><li>Start with <strong>Review first</strong> findings.</li><li>Read what happened and what remains uncertain.</li><li>Open the source evidence, check with the owner, and record your conclusion.</li></ol>
+      <details><summary>What do these labels mean?</summary><p><strong>Priority</strong> is the rule’s review order. <strong>Confidence</strong> describes its pattern match, not certainty of an attack. <strong>Review complete</strong> records your decision; it does not fix the computer. <strong>Benign / false alarm</strong> means you reviewed the finding and judged it harmless. ATT&amp;CK codes describe possible behavior categories.</p></details>
+      {% if result.parse_errors %}<p class="input-caution">Some input lines could not be analyzed. Inspect the unparsed lines and input coverage before relying on this report.</p>{% endif %}
+      {% if not result.alerts %}<p>No supported detection patterns were found. This does not establish that the system is safe.</p>{% endif %}
+    </section>
+    <section class="panel table-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">{{ result.alerts|length }} detections</p>
+          <h2>Findings explained</h2>
+        </div>
+        <div class="table-actions">
+          <a class="button button-secondary" href="{{ url_for('export_csv', run=run_id) }}">Export CSV <span>↓</span></a>
+          <a class="button button-secondary" href="{{ url_for('export_json',run=run_id) }}">Export investigation JSON</a>
+        </div>
+      </div>
+
+      <form method="get" action="{{ url_for('report') }}" class="filter-toolbar">
+        {% if run_id %}<input type="hidden" name="run" value="{{ run_id }}">{% endif %}
+        <input type="text" id="alert-search" name="q" value="{{ filters.q }}" aria-label="Search alerts" class="filter-search" placeholder="Search plain-language titles, account, computer, IP or technical details...">
+        <div class="filter-group">
+          <label for="severity-filter">Severity:</label>
+          <select id="severity-filter" name="severity" class="filter-select">
+            <option value="all" {% if filters.severity == "all" %}selected{% endif %}> All Severities</option>
+            <option value="critical" {% if filters.severity == "critical" %}selected{% endif %}> Review first (critical)</option>
+            <option value="high" {% if filters.severity == "high" %}selected{% endif %}> Review soon (high)</option>
+            <option value="medium" {% if filters.severity == "medium" %}selected{% endif %}> Needs context (medium)</option>
+            <option value="low" {% if filters.severity == "low" %}selected{% endif %}> Lower priority (low)</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="status-filter">Status:</label>
+          <select id="status-filter" name="status" class="filter-select">
+            <option value="all" {% if filters.status == "all" %}selected{% endif %}> All Statuses</option>
+            <option value="open" {% if filters.status == "open" %}selected{% endif %}> Not reviewed</option>
+            <option value="in_progress" {% if filters.status == "in_progress" %}selected{% endif %}> Checking</option>
+            <option value="resolved" {% if filters.status == "resolved" %}selected{% endif %}> Review complete</option>
+            <option value="false_positive" {% if filters.status == "false_positive" %}selected{% endif %}> Benign / false alarm</option>
+          </select>
+        </div>
+        <div id="visible-count" class="filter-stats">
+          {{ matched_count }} matching alerts · page {{ page }} of {{ pages }}
+        </div>
+        <button class="button button-secondary" type="submit">Apply filters</button>
+      </form>
+
+      <div id="alerts-table" class="finding-list">
+        {% for alert in report_alerts %}
+        {% set guide = explanations[alert.id] %}
+        <article id="{{ alert.id }}" class="finding-card alert-row-item" data-alert-id="{{ alert.id }}" data-status="{{ alert.status|default('open') }}" aria-labelledby="title-{{ alert.id }}">
+          <header class="finding-head"><div><span class="tag {{ alert.severity }}">{{ guide.priority }}</span><h3 id="title-{{ alert.id }}">{{ guide.title }}</h3></div>
+            <div class="review-control"><label for="status-{{ alert.id }}">Your review status</label>                <select id="status-{{ alert.id }}" class="triage-select status-{{ alert.status|default('open') }}" data-alert-id="{{ alert.id }}" aria-label="Triage status for {{ alert.id }}">
+                  <option value="open" {% if alert.status == 'open' %}selected{% endif %}>Not reviewed</option>
+                  <option value="in_progress" {% if alert.status == 'in_progress' %}selected{% endif %}>Checking</option>
+                  <option value="resolved" {% if alert.status == 'resolved' %}selected{% endif %}>Review complete</option>
+                  <option value="false_positive" {% if alert.status == 'false_positive' %}selected{% endif %}>Benign / false alarm</option>
+                </select></div>
+          </header>
+          <dl class="finding-facts"><div><dt>Computer</dt><dd>{{ alert.host or 'Not recorded' }}</dd></div><div><dt>Account</dt><dd>{{ alert.user if alert.user != 'unknown' else 'Not identified' }}</dd></div><div><dt>Address in this finding</dt><dd>{{ alert.ip if alert.ip != 'UNKNOWN' else 'Not recorded' }}</dd></div><div><dt>Observed (UTC)</dt><dd>{{ alert.timestamp[:19].replace('T',' ') }}</dd></div></dl>
+          <div class="finding-explanation"><section><h4>Why this needs attention</h4><p>{{ guide.why }}</p></section><section><h4>What we cannot conclude yet</h4><p>{{ guide.uncertainty }}</p></section><section class="finding-next"><h4>What to check next</h4><p>{{ guide.next_step }}</p></section></div>
+          <div class="finding-observation"><h4>What the detector observed</h4><p>{{ alert.message }}</p><small>This statement comes from the stored rule result. Compare it with the supporting lines below.</small></div>
+          <details class="event-evidence finding-evidence"><summary>Open source evidence · {{ alert.evidence_lines|default([alert.line])|length }} supporting lines</summary><p>These are recorded source lines. Commands and web responses do not by themselves prove successful execution or exploitation.</p>
+            {% for line in alert.evidence_lines|default([alert.line]) %}{% if evidence_by_line.get(line) %}<small>Source line {{ line }}</small><pre>{{ evidence_by_line[line].raw }}</pre>{% else %}<p>Source line {{ line }} is unavailable in this stored scan.</p>{% endif %}{% endfor %}
+            {% if alert.evidence_note is defined %}<p>{{ alert.evidence_note }}</p>{% endif %}
+            <a href="{{ url_for('timeline',run=run_id,q=alert.host or alert.ip) }}">View surrounding events in the timeline</a>
+          </details>
+          <details class="finding-technical"><summary>Technical details for analysts</summary><dl><dt>Finding ID / source anchor</dt><dd>{{ alert.id }} / line {{ alert.line }}</dd><dt>Rule</dt><dd>{{ alert.type }}</dd><dt>Rule severity / pattern confidence</dt><dd>{{ alert.severity }} / {{ alert.confidence|default('Not specified') }}</dd><dt>ATT&amp;CK behavior association</dt><dd>{{ alert.mitre.technique_id }} · {{ alert.mitre.technique }} · {{ alert.mitre.tactic }}</dd>{% if alert.baseline_source is defined %}<dt>Login reference source</dt><dd>{{ alert.baseline_source|replace('_',' ') }}{% if alert.baseline_runs %} · training scans: {{ alert.baseline_runs|join(', ') }}{% endif %}</dd>{% endif %}</dl>
+          {% if alert.correlation %}<p>Related signal group {{ alert.correlation.incident_id }}: {{ alert.correlation.related_detection_types|join(', ') }}. Shared identity and time context groups these findings; it does not prove they belong to one attack.</p>{% endif %}</details>
+                <details class="event-evidence"><summary>Your investigation notes ({{ notes_by_alert.get(alert.id,[])|length }})</summary>
+                  {% for note in notes_by_alert.get(alert.id,[]) %}<article class="analyst-note"><small>{{ note.actor }} · {{ note.created[:19].replace('T',' ') }} UTC · {{ note.disposition|replace('_',' ') }}</small><p>{{ note.body }}</p></article>{% endfor %}
+                  <form class="note-form" method="post" action="{{ url_for('add_investigation_note',run_id=run_id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="alert_id" value="{{ alert.id }}">
+                    <label for="note-{{ alert.id }}">What did you check?</label><textarea id="note-{{ alert.id }}" name="body" maxlength="5000" rows="3" required placeholder="Evidence reviewed, explanation, and next action"></textarea>
+                    <label for="disposition-{{ alert.id }}">Your assessment</label><select id="disposition-{{ alert.id }}" name="disposition"><option value="investigating">Still checking</option><option value="needs_context">Need more information</option><option value="benign">Expected activity</option><option value="suspicious">Unexpected / concerning</option></select>
+                    <button type="submit" class="button button-secondary" data-busy-label="Saving…">Save note</button>
+                  </form>
+                </details>
+        </article>
+        {% else %}<p class="empty">No findings match these filters. Clear the filters to see the complete report.</p>{% endfor %}
+      </div>
+    </section>
+    <details class="fixture-guide"><summary>Developer test-fixture metrics — not accuracy for this upload</summary>    {% if benchmark %}
+    <section class="metrics-panel">
+      <div>
+        <p class="eyebrow">Synthetic regression fixture / not upload accuracy</p>
+        <h2>Bundled fixture metrics</h2>
+      </div>
+      <div class="metric">
+        <span>Precision</span>
+        <strong>{{ (benchmark.precision * 100)|round(1) }}%</strong>
+      </div>
+      <div class="metric">
+        <span>Recall</span>
+        <strong>{{ (benchmark.recall * 100)|round(1) }}%</strong>
+      </div>
+      <div class="metric">
+        <span>False positive rate</span>
+        <strong>{{ (benchmark.false_positive_rate * 100)|round(1) }}%</strong>
+      </div>
+    </section>
+
+    {% if benchmark.by_type %}
+    <section class="panel benchmark-details-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Authored test labels</p>
+          <h2>Rule performance by detection category</h2>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Detection Rule</th>
+              <th>Labeled Support</th>
+              <th>True Positives</th>
+              <th>False Positives</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>FPR</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for alert_type, m in benchmark.by_type.items() %}
+            <tr>
+              <td><strong>{{ alert_type|replace('_', ' ')|title }}</strong></td>
+              <td>{{ m.support }}</td>
+              <td>{{ m.true_positive }}</td>
+              <td>{{ m.false_positive }}</td>
+              <td>{{ (m.precision * 100)|round(1) }}%</td>
+              <td>{{ (m.recall * 100)|round(1) }}%</td>
+              <td>{{ (m.false_positive_rate * 100)|round(1) }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+    {% endif %}
+
+    </details>
+    <div id="operation-status" role="status" aria-live="polite"></div>
+    <details class="panel history-panel"><summary>Triage activity · most recent 50 changes</summary>
+      <div class="table-wrap"><table><thead><tr><th>Alert</th><th>Change</th><th>Analyst</th><th>Updated (UTC)</th></tr></thead>
+        <tbody>{% for item in audit %}<tr><td>{{ item.alert_id }}</td><td>{{ item.old_status|replace('_',' ') }} → {{ item.new_status|replace('_',' ') }}</td><td>{{ item.actor }}</td><td>{{ item.created[:19].replace('T',' ') }}</td></tr>{% else %}<tr><td colspan="4">No triage changes recorded for this analysis.</td></tr>{% endfor %}</tbody>
+      </table></div>
+    </details>
+    <nav class="table-actions" aria-label="Report pages">
+      {% if page > 1 %}<a class="button" href="{{ url_for('report', page=page-1, **filters) }}">Previous</a>{% endif %}
+      <span>Page {{ page }} of {{ pages }}</span>
+      {% if page < pages %}<a class="button" href="{{ url_for('report', page=page+1, **filters) }}">Next</a>{% endif %}
+    </nav>
+  </main>
+  <script src="{{ url_for('static', filename='chart.js') }}"></script>
+</body>
+</html>
