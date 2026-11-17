@@ -64,11 +64,13 @@ def test_status_does_not_wait_for_windows_reader():
 def test_reader_permission_error_classification(monkeypatch):
     from types import SimpleNamespace
     import analyzer.monitor as module
+    monkeypatch.setattr(module,'IS_WINDOWS',True)
     monkeypatch.setattr(module.subprocess,'run',lambda *a,**kw:SimpleNamespace(returncode=1,stderr='SENTRYLINE_ACCESS_DENIED',stdout=''))
     with pytest.raises(RuntimeError,match='Security log access denied'):WindowsReader()(None)
 
 def test_reader_timeout_is_actionable(monkeypatch):
     import analyzer.monitor as module
+    monkeypatch.setattr(module,'IS_WINDOWS',True)
     def fail(*a,**kw):raise module.subprocess.TimeoutExpired('powershell',25)
     monkeypatch.setattr(module.subprocess,'run',fail)
     with pytest.raises(RuntimeError,match='timed out'):WindowsReader()(None)
@@ -88,3 +90,8 @@ def test_diagnostic_route_and_rate_fields(monkeypatch):
     assert client.post('/monitor/check',data={'consent':'yes'},environ_overrides={'REMOTE_ADDR':'192.0.2.1'}).status_code==403
     assert 'attempts_per_second_60' in client.get('/api/monitor').json['metrics']
     assert b'Attempts / second' in client.get('/monitor').data
+
+def test_reader_reports_unsupported_platform(monkeypatch):
+    import analyzer.monitor as module
+    monkeypatch.setattr(module,'IS_WINDOWS',False)
+    with pytest.raises(RuntimeError,match='requires Windows'):WindowsReader()(None)

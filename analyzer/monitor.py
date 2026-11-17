@@ -12,6 +12,8 @@ from pathlib import Path
 from analyzer import storage
 import config
 
+IS_WINDOWS = os.name == 'nt'
+
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -28,7 +30,7 @@ def persist(value):
 
 class WindowsReader:
     def __call__(self, checkpoint, lookback_minutes=0, diagnostic=False):
-        if os.name != 'nt':
+        if not IS_WINDOWS:
             raise RuntimeError('Local monitoring requires Windows. File uploads still work on this platform.')
         command = ['powershell.exe','-NoProfile','-NonInteractive','-File',str(config.BASE_DIR/'scripts/collect_windows.ps1')]
         if diagnostic:
